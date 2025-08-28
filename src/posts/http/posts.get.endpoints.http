@@ -1,0 +1,5 @@
+## Get all posts
+GET http://localhost:5173/posts
+
+## Get posts by userId
+GET http://localhost:5173/posts/1
