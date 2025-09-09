@@ -1,7 +1,7 @@
-import { IsArray, IsEnum, IsISO8601, IsJSON, IsNotEmpty, IsOptional, IsString, IsUrl, Matches, MinLength, ValidateNested } from 'class-validator'
+import { IsArray, IsEnum, IsInt, IsISO8601, IsJSON, IsNotEmpty, IsOptional, IsString, IsUrl, Matches, MaxLength, MinLength, ValidateNested } from 'class-validator'
 import { PostStatus } from '../enums/postStatus.enum'
 import { PostType } from '../enums/postType.enum'
-import { CreatePostMetaOptionsDto } from './create-post-meta-options.dto'
+import { CreatePostMetaOptionsDto } from '../../meta-options/dtos/create-post-meta-options.dto'
 import { Type } from 'class-transformer'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 
@@ -12,6 +12,7 @@ export class CreatePostDto {
 	})
 	@IsString()
 	@MinLength(4)
+	@MaxLength(512)
 	@IsNotEmpty()
 	title: string;
 
@@ -29,6 +30,7 @@ export class CreatePostDto {
 	})
 	@IsString()
 	@IsNotEmpty()
+	@MaxLength(256)
 	@Matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, { message: 'Slug must be lowercase and dash separated. For example "my-url"' })
 	slug: string;
 
@@ -62,6 +64,7 @@ export class CreatePostDto {
 	})
 	@IsOptional()
 	@IsUrl()
+	@MaxLength(1024)
 	featuredImageUrl?: string;
 
 	@ApiPropertyOptional({
@@ -73,39 +76,30 @@ export class CreatePostDto {
 	publishedOn?: Date;
 
 	@ApiPropertyOptional({
-		description: "Array of tags passed as string values",
-		example: ['nestjs', 'typescript']
+		description: "Array of tags passed as number values",
+		example: [1, 2]
 	})
 	@IsOptional()
 	@IsArray()
-	@IsString({ each: true })
-	@MinLength(3, { each: true })
-	tags?: string[];
+	@IsInt({ each: true })
+	tags?: number[];
 
 	@ApiPropertyOptional({
-		type: 'array',
-		required: false,
-		items: {
-			type: 'object',
-			properties: {
-				key: { 
-					type: 'string',
-					description: "The key can be any string identifier for your meta option",
-					example: "sidebarEnabled"
-				},
-				value: { 
-					type: 'any',
-					description: "Any value that you want to save to the key",
-					example: true
-				},
-			}
-		},
+		type: CreatePostMetaOptionsDto,
 		description: "Array of meta options passed as objects",
 	})
 	@IsOptional()
-	@IsArray()
-	@ValidateNested({ each: true })
+	@ValidateNested()
 	@Type(() => CreatePostMetaOptionsDto)
-	metaOptions?: CreatePostMetaOptionsDto[]
+	metaOptions?: CreatePostMetaOptionsDto
 
+	@ApiProperty({
+		type: 'integer',
+		required: true,
+		description: "This is a author id of a blog post",
+		example: 1
+	})
+	@IsNotEmpty()
+	@IsInt()
+	authorId: number;
 }

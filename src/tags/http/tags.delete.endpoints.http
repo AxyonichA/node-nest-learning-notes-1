@@ -1,0 +1,3 @@
+DELETE http://localhost:5173/tags/2
+
+DELETE http://localhost:5173/tags/3/soft-delete

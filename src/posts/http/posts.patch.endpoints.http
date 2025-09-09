@@ -1,6 +1,13 @@
 PATCH http://localhost:5173/posts
 Content-Type: application/json
 {
-	"id": 1,
-	"postType": "post"
+	"id": 5,
+	"title": "What's new with NestJS with TS",
+	"postType": "post",
+	"status": "draft",
+	"content": "test content",
+	"metaOptions": {
+		"metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}"
+	},
+	"tags": [1,3]
 }

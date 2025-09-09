@@ -34,15 +34,13 @@ export class UsersController {
 		return this.usersService.findAll(limit, page)
 	}
   @Get('/:id')
-	public getUserByID(@Param('id') id: string) {
+	public getUserByID(@Param('id', ParseIntPipe) id: number) {
 		return this.usersService.findOneByID(id)
 	}
 
 	@Post()
 	public createUsers(@Body() createUserDto: CreateUserDto) {
-		console.log(createUserDto instanceof CreateUserDto);
-		
-		return 'You send a POST request to /users'
+		return this.usersService.createUser(createUserDto)
 	}
 
 	@Patch()

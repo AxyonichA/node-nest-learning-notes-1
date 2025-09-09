@@ -2,7 +2,7 @@ POST http://localhost:5173/users
 Content-Type: application/json
 {
 	"firstName": "Alex",
-	// "lastName": "Axyonov",
+	"lastName": "Axyonov",
 	"email": "booboo@mail.ru",
 	"password": "password123!"
 }

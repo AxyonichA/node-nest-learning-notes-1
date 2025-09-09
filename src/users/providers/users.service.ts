@@ -1,5 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { AuthService } from 'src/auth/providers/auth.service'
+import { Repository } from 'typeorm'
+import { User } from '../user.entity'
+import { InjectRepository } from '@nestjs/typeorm'
+import { CreateUserDto } from '../dtos/create-user.dto'
 
 /**
  * Class to connect to Users table and perform basic operations
@@ -7,6 +11,9 @@ import { AuthService } from 'src/auth/providers/auth.service'
 @Injectable()
 export class UsersService {
 	constructor(
+		@InjectRepository(User)
+		private usersRepository: Repository<User>,
+
 		@Inject(forwardRef(() => AuthService))
 		private readonly authService: AuthService
 	) {}
@@ -39,14 +46,18 @@ export class UsersService {
 	 * @param userId 
 	 * @returns 
 	 */
-	public findOneByID(userId: string) {
-		const isAuth = this.authService.isAuth()
-		console.log(isAuth)
-		return {
-			id: userId,
-			firstName: 'John',
-			lastName: 'Doe',
-			email: 'l3M0y@example.com'
-		}
+	public async findOneByID(id: number) {
+		return await this.usersRepository.findOneBy({ id })
+	}
+
+	public async createUser(createUserDto: CreateUserDto) {
+		const existingUser = await this.usersRepository.findOne({
+			where: { email: createUserDto.email }
+		})
+
+		let newUser = this.usersRepository.create(createUserDto)
+		newUser = await this.usersRepository.save(newUser)
+
+		return newUser
 	}
 }

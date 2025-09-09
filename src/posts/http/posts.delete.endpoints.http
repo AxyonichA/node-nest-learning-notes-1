@@ -1,0 +1,2 @@
+## Delete post by ID
+DELETE http://localhost:5173/posts/6
