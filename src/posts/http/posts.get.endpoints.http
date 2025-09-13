@@ -1,5 +1,14 @@
+{{
+	const date = new Date()
+	exports.startDate = date.toString()
+	exports.endDate = date.toString()
+}}
 ## Get all posts
 GET http://localhost:5173/posts
+	?startDate={{startDate}}
+	&endDate={{endDate}}
+	&limit=10
+	&page=1
 
 ## Get posts by userId
 GET http://localhost:5173/posts/1

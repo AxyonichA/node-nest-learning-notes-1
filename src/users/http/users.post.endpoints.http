@@ -1,8 +1,22 @@
 POST http://localhost:5173/users
 Content-Type: application/json
 {
-	"firstName": "Alex",
+	"firstName": "Alexandr",
 	"lastName": "Axyonov",
-	"email": "booboo@mail.ru",
+	"email": "boobooboo@mail.ru",
 	"password": "password123!"
+}
+
+
+POST http://localhost:5173/users/create-many
+Content-Type: application/json
+{
+	"users" : [
+		{
+			"firstName": "Aleee",
+			"lastName": "Axyo",
+			"email": "boob@mail.ru",
+			"password": "password123!"
+		}
+	]
 }

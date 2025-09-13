@@ -52,7 +52,7 @@ export class Tag {
 	deletedAt: Date;
 
 	@ManyToMany(() => Post, (post) => post.tags, {
-		onDelete: 'CASCADE'
+		onDelete: 'CASCADE',
 	})
 	posts: Post[]
 }
