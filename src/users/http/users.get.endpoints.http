@@ -2,4 +2,4 @@
 GET http://localhost:5173/users
 
 ## Get user by ID
-GET http://localhost:5173/users/1
+GET http://localhost:5173/users/4

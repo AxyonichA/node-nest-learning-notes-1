@@ -1,11 +1,9 @@
 import { BadRequestException, forwardRef, HttpException, HttpStatus, Inject, Injectable, RequestTimeoutException } from '@nestjs/common'
 import { AuthService } from 'src/auth/providers/auth.service'
-import { DataSource, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { User } from '../user.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { CreateUserDto } from '../dtos/create-user.dto'
-import {  ConfigType } from '@nestjs/config'
-import profileConfig from '../config/profile.config'
 import { UsersCreateManyProvider } from './users-create-many.provider'
 import { CreateManyUsersDto } from '../dtos/create-many-users.dto'
 import { CreateUserProvider } from './create-user.provider'
@@ -17,14 +15,10 @@ import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider'
 @Injectable()
 export class UsersService {
 	constructor(
-		@Inject(profileConfig.KEY)
-		private readonly profileConfiguration: ConfigType<typeof profileConfig>,
 		@InjectRepository(User)
 		private usersRepository: Repository<User>,
 
-		private readonly dataSource: DataSource,
 		@Inject(forwardRef(() => AuthService))
-		private readonly authService: AuthService,
 
 		private readonly usersCreateManyProvider: UsersCreateManyProvider,
 		private readonly createUserProvider: CreateUserProvider,

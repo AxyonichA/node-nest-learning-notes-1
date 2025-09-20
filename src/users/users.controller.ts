@@ -4,6 +4,8 @@ import { PatchUserDto } from './dtos/patch-user.dto'
 import { UsersService } from './providers/users.service'
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateManyUsersDto } from './dtos/create-many-users.dto'
+import { Auth } from 'src/auth/decorator/auth.decorator'
+import { AuthType } from 'src/auth/enums/auth-type.enum'
 
 @Controller('users')
 @ApiTags('Users')
@@ -40,6 +42,7 @@ export class UsersController {
 	}
 
 	@Post()
+	@Auth(AuthType.None)
 	public createUsers(@Body() createUserDto: CreateUserDto) {
 		return this.usersService.createUser(createUserDto)
 	}
@@ -50,6 +53,7 @@ export class UsersController {
 	}
 
 	@Patch()
+	@Auth(AuthType.Bearer)
 	public patchUser(@Body() patchUserDto: PatchUserDto) {
 		console.log(patchUserDto);
 		

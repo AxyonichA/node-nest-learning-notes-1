@@ -1,0 +1,8 @@
+POST http://localhost:5173/auth/sign-in
+Content-Type: application/json
+
+{
+	"email": "boobooboo@mail.ru",
+	"password": "password123!"
+}
+// password123!

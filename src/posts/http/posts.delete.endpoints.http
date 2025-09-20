@@ -1,2 +1,3 @@
 ## Delete post by ID
-DELETE http://localhost:5173/posts/6
+DELETE http://localhost:5173/posts/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYm9vYm9vYm9vQG1haWwucnUiLCJpYXQiOjE3NTc5OTQ1MzIsImV4cCI6MTc1Nzk5ODEzMiwiYXVkIjoibG9jYWxob3N0OjUxNzMiLCJpc3MiOiJsb2NhbGhvc3Q6NTE3MyJ9.QhW3z7AQ79byOar4jtbZvKFlzE7khh7Y5PzsAe1ncnc

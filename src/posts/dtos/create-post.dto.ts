@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsInt, IsISO8601, IsJSON, IsNotEmpty, IsOptional, IsString, IsUrl, Matches, MaxLength, MinLength, ValidateNested } from 'class-validator'
+import { IsArray, IsDate, IsEnum, IsInt, IsJSON, IsNotEmpty, IsOptional, IsString, IsUrl, Matches, MaxLength, MinLength, ValidateNested } from 'class-validator'
 import { PostStatus } from '../enums/postStatus.enum'
 import { PostType } from '../enums/postType.enum'
 import { CreatePostMetaOptionsDto } from '../../meta-options/dtos/create-post-meta-options.dto'
@@ -71,8 +71,11 @@ export class CreatePostDto {
 		description: "The date on which the post is published",
 		example: "2024-03-16T07:46:32+0000"
 	})
-	@IsISO8601()
 	@IsOptional()	
+	// @IsISO8601({
+	// 	strict: true
+	// })
+	@IsDate()
 	publishedOn?: Date;
 
 	@ApiPropertyOptional({
@@ -92,14 +95,4 @@ export class CreatePostDto {
 	@ValidateNested()
 	@Type(() => CreatePostMetaOptionsDto)
 	metaOptions?: CreatePostMetaOptionsDto
-
-	@ApiProperty({
-		type: 'integer',
-		required: true,
-		description: "This is a author id of a blog post",
-		example: 1
-	})
-	@IsNotEmpty()
-	@IsInt()
-	authorId: number;
 }

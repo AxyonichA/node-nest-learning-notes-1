@@ -1,6 +1,7 @@
 PATCH http://localhost:5173/users
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYm9vYm9vYm9vQG1haWwucnUiLCJpYXQiOjE3NTc5OTI0MjAsImV4cCI6MTc1Nzk5NjAyMCwiYXVkIjoibG9jYWxob3N0OjUxNzMiLCJpc3MiOiJsb2NhbGhvc3Q6NTE3MyJ9.8rZFQ60v-L8Z4sfa3onxddlKdcyM-x9qNb7o-zykNzw
 {
-	"email": "booboo@mail.ru",
+	"email": "boobooboo@mail.ru",
 	"password": "password123!"
 }

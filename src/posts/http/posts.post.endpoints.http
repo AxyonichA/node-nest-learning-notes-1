@@ -1,14 +1,15 @@
 POST http://localhost:5173/posts
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYm9vYm9vYm9vQG1haWwucnUiLCJpYXQiOjE3NTc5OTI5NDksImV4cCI6MTc1Nzk5NjU0OSwiYXVkIjoibG9jYWxob3N0OjUxNzMiLCJpc3MiOiJsb2NhbGhvc3Q6NTE3MyJ9.X5-MqOWLnfT5C8mqRR__YpoGcTUipRAJzFvI7V4mfCc
 {
 	"title": "What's new with NestJS",
 	"postType": "post",
-	"slug": "new-with-nestjs-2",
+	"slug": "new-with-nestjs-3",
 	"status": "draft",
 	"content": "test content",
 	"schema": "{\r\n \"@context\": \"https:\/\/schema.org\",\r\n \"@type\": \"Person\"\r\n }",
 	"featuredImageUrl": "http://localhost.com/images/image1.jpg",
-	"publishedOn": "2024-03-16T07:46:32+0000",
+	"publishedOn": "2024-03-16T07:46:33+0000",
 	// "tags": ["nestjs", "typescript"],
 	"metaOptions": {
 		"metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}"

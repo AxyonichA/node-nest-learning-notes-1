@@ -11,6 +11,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import appConfig from 'src/config/app.config'
 import databaseConfig from 'src/config/database.config';
 import environmentValidation from 'src/config/environment.validation'
+import { JwtModule } from '@nestjs/jwt'
+import profileConfig from 'src/users/config/profile.config'
+import jwtConfig from 'src/auth/config/jwt.config'
+import { APP_GUARD } from '@nestjs/core'
+import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard'
+import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard'
 
 const ENV = process.env.NODE_ENV
 
@@ -24,6 +30,9 @@ const ENV = process.env.NODE_ENV
 			load: [appConfig, databaseConfig],
 			validationSchema: environmentValidation
 		}),
+		ConfigModule.forFeature(profileConfig),
+		ConfigModule.forFeature(jwtConfig), 
+		JwtModule.registerAsync(jwtConfig.asProvider()),
 		TypeOrmModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
@@ -41,6 +50,13 @@ const ENV = process.env.NODE_ENV
 		})
 	],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+		AppService,
+		{
+			provide: APP_GUARD,
+			useClass: AuthenticationGuard
+		},
+		AccessTokenGuard
+	],
 })
 export class AppModule {}

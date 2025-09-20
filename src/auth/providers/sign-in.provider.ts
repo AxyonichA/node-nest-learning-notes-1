@@ -2,14 +2,16 @@ import { forwardRef, Inject, Injectable, RequestTimeoutException, UnauthorizedEx
 import { SignInDto } from '../dtos/signin.dto'
 import { UsersService } from 'src/users/providers/users.service'
 import { HashingService } from './hashing.service'
+import { GenerateTokensProvider } from './generate-tokens.provider'
 
 @Injectable()
 export class SignInProvider {
 	constructor(
 		@Inject(forwardRef(() => UsersService))
 		private readonly usersService: UsersService,
-
-		private readonly hashingService: HashingService
+		
+		private readonly hashingService: HashingService,
+		private readonly generateTokensProvider: GenerateTokensProvider,
 	) {}
 	public async signIn(signInDto: SignInDto) {
 		const user = await this.usersService.findOneByEmail(signInDto.email)
@@ -28,6 +30,7 @@ export class SignInProvider {
 			throw new UnauthorizedException('Password is incorrect')
 		}
 
-		return true
+		return await this.generateTokensProvider.generateTokens(user)
 	}
+
 }
