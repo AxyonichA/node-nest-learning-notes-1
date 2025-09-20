@@ -18,12 +18,14 @@ export class SignInProvider {
 	
 		let isEqual: boolean = false
 
-		try {
-			isEqual = await this.hashingService.comparePassword(signInDto.password, user.password)
-		} catch (error) {
-			throw new RequestTimeoutException(error, {
-				description: 'Could not compare passwords'
-			})
+		if(user.password) {
+			try {
+				isEqual = await this.hashingService.comparePassword(signInDto.password, user.password)
+			} catch (error) {
+				throw new RequestTimeoutException(error, {
+					description: 'Could not compare passwords'
+				})
+			}
 		}
 
 		if(!isEqual) {
