@@ -1,0 +1,9 @@
+POST http://localhost:5173/uploads/file
+Content-Type: multipart/form-data; boundary=WebKitFormBoundary
+
+--WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="image.jpeg"
+Content-Type: image/jpeg
+
+< ./image.jpeg
+--WebKitFormBoundary--

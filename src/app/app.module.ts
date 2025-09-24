@@ -14,16 +14,19 @@ import environmentValidation from 'src/config/environment.validation'
 import { JwtModule } from '@nestjs/jwt'
 import profileConfig from 'src/users/config/profile.config'
 import jwtConfig from 'src/auth/config/jwt.config'
-import { APP_GUARD } from '@nestjs/core'
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard'
 import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard'
+import { DataResponseInterceptor } from 'src/common/interceptors/data-response/data-response.interceptor'
+import { UploadsModule } from 'src/uploads/uploads.module'
+import { MailModule } from 'src/mail/mail.module'
 
 const ENV = process.env.NODE_ENV
 
 @Module({
   imports: [
 		UsersModule, PostsModule, AuthModule, 
-		TagsModule, MetaOptionsModule,
+		TagsModule, MetaOptionsModule, UploadsModule, MailModule,
 		ConfigModule.forRoot({
 			isGlobal: true,
 			envFilePath: !ENV ? '.env' : `.env.${ENV}`,
@@ -55,6 +58,10 @@ const ENV = process.env.NODE_ENV
 		{
 			provide: APP_GUARD,
 			useClass: AuthenticationGuard
+		},
+		{
+			provide: APP_INTERCEPTOR,
+			useClass: DataResponseInterceptor
 		},
 		AccessTokenGuard
 	],

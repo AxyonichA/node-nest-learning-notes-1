@@ -1,5 +1,4 @@
 import { ConflictException, Injectable, RequestTimeoutException } from '@nestjs/common';
-import { CreateUserDto } from '../dtos/create-user.dto'
 import { User } from '../user.entity'
 import { DataSource } from 'typeorm'
 import { CreateManyUsersDto } from '../dtos/create-many-users.dto'
