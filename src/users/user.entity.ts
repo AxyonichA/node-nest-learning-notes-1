@@ -45,5 +45,5 @@ export class User {
 	googleID?: string;
 
 	@OneToMany(() => Post, (post) => post.author)
-	posts: Post[];
+	posts?: Post[];
 }

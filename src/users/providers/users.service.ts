@@ -1,5 +1,4 @@
-import { BadRequestException, forwardRef, HttpException, HttpStatus, Inject, Injectable, RequestTimeoutException } from '@nestjs/common'
-import { AuthService } from 'src/auth/providers/auth.service'
+import { BadRequestException, HttpException, HttpStatus, Injectable, RequestTimeoutException } from '@nestjs/common'
 import { Repository } from 'typeorm'
 import { User } from '../user.entity'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -21,7 +20,6 @@ export class UsersService {
 		@InjectRepository(User)
 		private usersRepository: Repository<User>,
 
-		@Inject(forwardRef(() => AuthService))
 
 		private readonly usersCreateManyProvider: UsersCreateManyProvider,
 		private readonly createUserProvider: CreateUserProvider,
